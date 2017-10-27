@@ -1,3 +1,8 @@
+""" Created by Ashish Shukla on 15 October 2017
+    Define maximum length of passwords by directly changing the value of max_lenght in code
+    You should enter name of at least 3 length else size of password file genrated is so big
+"""
+
 import itertools
 max_length = 10
 name = input("Enter the initial string: ")  # This should have minimum value 3
