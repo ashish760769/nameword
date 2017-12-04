@@ -1,18 +1,21 @@
-""" Created by Ashish Shukla on 15 October 2017
-    Define maximum length of passwords by directly changing the value of max_lenght in code
-    You should enter name of at least 3 length else size of password file genrated is so big
-"""
-
+import argparse
 import itertools
-max_length = 10
-name = input("Enter the initial string: ")  # This should have minimum value 3
+
+parser = argparse.ArgumentParser()
+parser.add_argument("max_length", help="Maximum length of password you want", type=int)
+parser.add_argument("init_str", help="initial string of each password", type=str)
+parser.add_argument("--vervose", help="specify if want details of passwords")
+parser.add_argument("--interval", help="interval between passwords, need in vervose mode", type=int)
+args = parser.parse_args()
+
+name = args.init_str  # This should have minimum value 3
 if len(name) < 3:
     print("file created is so big, Try again with big string.")
     exit(code=7)
 password_file = name + "_password.txt"
 number_of_passwords = 0
 f = open(password_file, "w")
-max_digit_length = max_length - len(name)
+max_digit_length = args.max_length - len(name)
 digit_length = 1
 digit_string = ""
 while digit_length <= max_digit_length:
@@ -23,8 +26,9 @@ while digit_length <= max_digit_length:
         s = name + digit_string + "\n"
         f.write(s)
         number_of_passwords += 1
-        if number_of_passwords % 5000 == 0:
-            print(s)
+        if number_of_passwords % args.interval == 0:
+            if args.vervose:
+                print(s, end="")
         digit_string = ""
     digit_length += 1
 
